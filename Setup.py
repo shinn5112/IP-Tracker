@@ -17,7 +17,7 @@ welcomeText = 'This program will configure the settings for WAN_Checker.py, to e
               'the settings are correct, please be sure to enter the correct information. Spelling counts.\n' \
               'If you are having issues or have questions, please refer to the README.txt. \n' \
               'Windows support is in beta at this time. \n'
-pwd = os.getcwd()
+pwd = os.getcwd()  # gets current
 pwd = pwd.strip('"\'\n\t')
 
 # empty variables for storing values to be written to settingsList
@@ -54,13 +54,14 @@ if oldSettings is False:  # lets the user know that no previous settings were fo
     print("1. Manual (Not recommended for novice programmers).\n"
           "2. Easy Setup (recommended). \n")
     mode = input("")
-else:
+else:  # If a settings file is found, setup is opened in manual config mode.
     print("A settings file was found, you can either edit the file or start fresh by deleting settings.txt. \n")
     mode = '1'
 
 while not done:
     if mode == '2':
-        while mode == '2':
+        while mode == '2':  # while in easy mode, this code executes
+            # User will answer the following questions, and the script will try to automate as much as it can.
             q1 = input("Does your server run owncloud? yes/no: \n")
             if q1.lower() == 'no':
                 phpConfig = 'none'
@@ -73,7 +74,7 @@ while not done:
             q7 = input("What would you like the email's subject to be?: \n")
             q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: \n")
             emailConfirm = False
-            while not emailConfirm:
+            while not emailConfirm:  # preset email server settings.
                 if q5.lower() == 'gmail':
                     serverAddress = 'smtp.gmail.com'
                     serverPort = '587'
@@ -84,7 +85,8 @@ while not done:
                     emailConfirm = True
                 elif q5.lower() == 'neither':
                     mode = '1'
-                    print("You will need to manually configure your settings, please select option 1.\n")
+                    print("You will need to manually configure your settings, please select option 1"
+                          " to configure settings.\n")
                     break
                 else:
                     print('"' + q5 + '"' + ' was not an option, please try again.')
@@ -92,10 +94,10 @@ while not done:
             if mode == '1':
                 break
             q6 = input("What is your operating system? Windows, OSX, or Linux?: \n")
-            if q6.lower() == 'windows':
+            if q6.lower() == 'windows':  # Windows config
                 oldWan = pwd + '\\wan.txt'
                 logFile = pwd = '\\log.txt'
-            else:
+            else:  # Linux and OSX config
                 oldWan = pwd + '/wan.txt'
                 logFile = pwd + '/log.txt'
 
@@ -104,7 +106,7 @@ while not done:
             password = q4
             operatingSystem = q6
             subject = q7
-
+            #  Appends settings to settings list for writing
             settingsList.append(phpConfig)
             settingsList.append(logFile)
             settingsList.append(oldWan)
@@ -116,10 +118,8 @@ while not done:
             settingsList.append(serverPort)
             settingsList.append(operatingSystem)
             mode = '1'
-            print(serverPort)
-            print(operatingSystem)
 
-    elif mode == '1':
+    elif mode == '1':  # manual config mode
         # Options menu
         print("What would you like to do? \n"
               "1. Configure Settings\n"
