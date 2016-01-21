@@ -147,7 +147,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
 
     This function takes the various inputs and email the new server ip address to the receiving address
     """
-    mail_error = 0
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
     msg = 'Your Server IP Address has changed to: ' + current_ip
     body = '\r\n'.join([
@@ -167,7 +166,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
             break
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
             log_txt.write("Connection to server failed: '" + error + "', trying again. \n")
-            mail_error += 1
             sleep(5)
     while not done:
         try:  # email the new ip
@@ -178,7 +176,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
             # if the email is not sent, wait for 5 seconds and try again.
             log_txt.write("Message send Failure: '" + error + "', trying again. \n")
-            mail_error += 1
             sleep(5)
 
     # Closing all opened files
