@@ -1,6 +1,9 @@
 WAN IP Checker Version 4.3
+
 Setup Version 2
+
 Author: Patrick Shinn
+
 Last Update 1/20/16
 --------------------
 
