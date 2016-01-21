@@ -53,7 +53,7 @@ if oldSettings is False:  # lets the user know that no previous settings were fo
     print("No previous settings were found, please select a configuration mode.\n")
     print("1. Manual (Not recommended for novice programmers).\n"
           "2. Easy Setup (recommended). \n")
-    mode = input("")
+    mode = input("Enter your selection number: ")
 else:  # If a settings file is found, setup is opened in manual config mode.
     print("A settings file was found, you can either edit the file or start fresh by deleting settings.txt. \n")
     mode = '1'
@@ -62,17 +62,17 @@ while not done:
     if mode == '2':
         while mode == '2':  # while in easy mode, this code executes
             # User will answer the following questions, and the script will try to automate as much as it can.
-            q1 = input("Does your server run owncloud? yes/no: \n")
+            q1 = input("Does your server run owncloud? yes/no: ")
             if q1.lower() == 'no':
                 phpConfig = 'none'
             else:
-                q1 = input("What is the absolute path to your config.php file?: \n")
+                q1 = input("What is the absolute path to your config.php file?: ")
                 phpConfig = q1
-            q2 = input("What email would you like address changes to be send to?: \n")
-            q3 = input("What email would you like to send the alerts from?: \n")
-            q4 = input("What is the sender email's password?: \n")
-            q7 = input("What would you like the email's subject to be?: \n")
-            q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: \n")
+            q2 = input("What email would you like address changes to be send to?: ")
+            q3 = input("What email would you like to send the alerts from?: ")
+            q4 = input("What is the sender email's password?: ")
+            q7 = input("What would you like the email's subject to be?: ")
+            q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: ")
             emailConfirm = False
             while not emailConfirm:  # preset email server settings.
                 if q5.lower() == 'gmail':
@@ -86,14 +86,14 @@ while not done:
                 elif q5.lower() == 'neither':
                     mode = '1'
                     print("You will need to manually configure your settings, please select option 1"
-                          " to configure settings.\n")
+                          " to configure settings.")
                     break
                 else:
                     print('"' + q5 + '"' + ' was not an option, please try again.')
-                    q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: \n")
+                    q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: ")
             if mode == '1':
                 break
-            q6 = input("What is your operating system? Windows, OSX, or Linux?: \n")
+            q6 = input("What is your operating system? Windows, OSX, or Linux?: ")
             if q6.lower() == 'windows':  # Windows config
                 oldWan = pwd + '\\wan.txt'
                 logFile = pwd = '\\log.txt'

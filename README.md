@@ -1,4 +1,4 @@
-WAN IP Checker Version 4.3
+WAN IP Checker Version 4.4
 
 Setup Version 2
 

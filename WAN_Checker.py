@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.3
+@version 4.4
 Last Update: 1/20/16
 
 This program is set up for all operating systems by setting adjustment.
@@ -133,20 +133,22 @@ def php_config(current_ip, php_location):
     config_rewrite.close()
 
 
-def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_address, server_port):
+def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port):
     """
     :param log_txt: log for errors
     :param current_ip: what the ip to be sent is
     :param sender: sender email address
     :param recipient: receiving email address
     :param sub: subject of email
-    :param passwrd: password of sender email
+    :param passwd: password of sender email
     :param server_address: address of the server
     :param server_port: server port being used
     :return:
 
     This function takes the various inputs and email the new server ip address to the receiving address
     """
+    mail_error = 0  # used to see how many times errors occurred
+    server = smtplib.SMTP(server_address, server_port) # server to be connected to
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
     msg = 'Your Server IP Address has changed to: ' + current_ip
     body = '\r\n'.join([
@@ -157,27 +159,33 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
         msg])
 
     while not done:
+        if mail_error == 3:
+            log_txt.write("Failed to connect to the server 3 times, email not sent.\n")
+            break
         try:
-            server = smtplib.SMTP(server_address, server_port)
             server.ehlo()
             server.starttls()
             server.ehlo()
             log_txt.write("Successful connection to server. \n")
             break
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
-            log_txt.write("Connection to server failed: '" + error + "', trying again. \n")
+            log_txt.write("Connection to server failed: '" + str(error) + "', trying again. \n")
+            mail_error += 1
             sleep(5)
-    while not done:
-        try:  # email the new ip
-            server.login(sender, passwrd)
-            server.sendmail(sender, recipient, body)
-            log_txt.write('The message was sent successfully. \n \n')
-            break
-        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
-                smtplib.SMTPAuthenticationError) as error:
-            # if the email is not sent, wait for 5 seconds and try again.
-            log_txt.write("Message send Failure: '" + error + "', trying again. \n")
-            sleep(5)
+    if mail_error == 3:
+        pass  # if the server failed to connect, no email is sent and program ends.
+    else:
+        while not done:
+            try:  # email the new ip
+                server.login(sender, passwd)
+                server.sendmail(sender, recipient, body)
+                log_txt.write('The message was sent successfully. \n \n')
+                break
+            except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
+                    smtplib.SMTPAuthenticationError) as error:
+                # if the email is not sent, wait for 5 seconds and try again.
+                log_txt.write("Message send Failure: '" + str(error) + "'. \n")
+                break
 
     # Closing all opened files
     log_txt.close()
