@@ -2,13 +2,14 @@ WAN IP Checker Version 4.3
 Setup Version 2
 Author: Patrick Shinn
 Last Update 1/20/16
-------------------------------------------------------------------------------------------------------------------
-General Description
+--------------------
+
+# General Description
 
 The purpose of the software is to check the current IP address of the network it is on and record it. In the event
 that the address changes, the program will send an email out to inform the server owner of the change. If owncloud
 is run on the server, the config file will automatically be updated to allow access from the new address.
-------------------------------------------------------------------------------------------------------------------
+
 # Setup
 
 This software was designed for home cloud server using owncloud. This software may still be used if you do not run
@@ -57,14 +58,13 @@ This was built using a gmail email for the server.
    This will run the wan checker as root and record all erros to the wan directory. This is setup assuming that you
    used /opt as the install directory. If you installed it else where, please rerun the crontab command and 
    edit it to be: * * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
---------------------------------------------------------------------------------------------------------------------
- # Trouble Shooting
+   
+# Trouble Shooting
  
  This script is not full proof, this was designed to run on a linux server running ubuntu. You may have to do further
  reading to get it working. 
-------------------------------------------------------------------------------------------------------------------
 
-Contact
+# Contact
 
 If you have anything to contribute to this software, please email me at shinn16@marshall.edu This software is opensource
 and is to be shared with all who wish to view it.
