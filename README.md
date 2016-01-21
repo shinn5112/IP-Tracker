@@ -1,7 +1,7 @@
-WAN IP Checker Version 4.1
-Setup Version 1.2
+WAN IP Checker Version 4.3
+Setup Version 2
 Author: Patrick Shinn
-Last Update 1/16/16
+Last Update 1/20/16
 ------------------------------------------------------------------------------------------------------------------
 General Description
 
@@ -9,10 +9,10 @@ The purpose of the software is to check the current IP address of the network it
 that the address changes, the program will send an email out to inform the server owner of the change. If owncloud
 is run on the server, the config file will automatically be updated to allow access from the new address.
 ------------------------------------------------------------------------------------------------------------------
-Setup
+# Setup
 
 This software was designed for home cloud server using owncloud. This software may still be used if you do not run
-an owncloud installation. Follow the directions to succesfullly install and use WAN IP Checker 4.3 and the companion
+an owncloud installation. Follow the directions to successfully install and use WAN IP Checker 4.3 and the companion
 setup software. It is advised that you make an email account specifically for your server such as myserver@example.com.
 This was built using a gmail email for the server.
 
@@ -31,13 +31,13 @@ This was built using a gmail email for the server.
    server address = smtp.gmail.com
    port = 587
    Yahoo:
-   server address = smtp.yahoo.com
+   server address = smtp.mail.yahoo.com
    port = 587
    
-   Other emial providers have not been tested.
+   Other email providers have not been tested.
    
 4. If this is your first time running the Setup.py, you need to select option 1, configure. You will then be asked 
-   a series of questions about your severver and email setup. Make sure you use absolute paths to files and the 
+   a series of questions about your server and email setup. Make sure you use absolute paths to files and the 
    proper email settings, otherwise the program will fail to run. For your first install, your email subject should
    read WAN Test or something similar. You can go back and change this by running Setup.py again and selecting option
    2, edit.
@@ -56,14 +56,15 @@ This was built using a gmail email for the server.
    * * * * * python3 /opt/wan/WAN_Checker.py 2> /opt/wan/error.log
    This will run the wan checker as root and record all erros to the wan directory. This is setup assuming that you
    used /opt as the install directory. If you installed it else where, please rerun the crontab command and 
-   edit it to be: * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
+   edit it to be: * * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
 --------------------------------------------------------------------------------------------------------------------
- Trouble Shooting
+ # Trouble Shooting
  
  This script is not full proof, this was designed to run on a linux server running ubuntu. You may have to do further
  reading to get it working. 
---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+
 Contact
 
-If you have anything to contribute to this software, please email me at patrick_shinn@yahoo.com. This software is opensource
+If you have anything to contribute to this software, please email me at shinn16@marshall.edu This software is opensource
 and is to be shared with all who wish to view it.
