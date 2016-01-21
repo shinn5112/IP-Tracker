@@ -79,7 +79,7 @@ while not done:
                     serverPort = '587'
                     emailConfirm = True
                 elif q5.lower() == 'yahoo':
-                    serverAddress = 'smtp.yahoo.com'
+                    serverAddress = 'smtp.mail.yahoo.com'
                     serverPort = '587'
                     emailConfirm = True
                 elif q5.lower() == 'neither':
