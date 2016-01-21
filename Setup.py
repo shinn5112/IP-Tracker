@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 1.4
+@version 2
 Last Updated: 1/17/16
 This is the setting setup for WAN_Checker.py, run this before running WAN_Checker.py
 This program will ask a series of ten questions to the user to get the proper settings.

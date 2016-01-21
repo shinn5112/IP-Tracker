@@ -173,7 +173,8 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
             server.sendmail(sender, recipient, body)
             log_txt.write('The message was sent successfully. \n \n')
             break
-        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
+        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
+                smtplib.SMTPAuthenticationError) as error:
             # if the email is not sent, wait for 5 seconds and try again.
             log_txt.write("Message send Failure: '" + error + "', trying again. \n")
             sleep(5)
