@@ -158,39 +158,28 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwrd, server_addre
         msg])
 
     while not done:
-        if mail_error != 10:
-            try:
-                server = smtplib.SMTP(server_address, server_port)
-                server.ehlo()
-                server.starttls()
-                server.ehlo()
-                log_txt.write("Successful connection to server. \n")
-                break
-            except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
-                log_txt.write("Connection to server failed: '" + error + "', trying again. \n")
-                mail_error += 1
-                sleep(5)
-        elif mail_error == 10:
-            log_txt.write("Failed to connect to the server 10 times, cancel sending. Please check your email"
-                          "server settings.\n")
+        try:
+            server = smtplib.SMTP(server_address, server_port)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            log_txt.write("Successful connection to server. \n")
             break
-
-    mail_error -= mail_error  # resets to 0
+        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
+            log_txt.write("Connection to server failed: '" + error + "', trying again. \n")
+            mail_error += 1
+            sleep(5)
     while not done:
-        if mail_error != 5:
-            try:  # email the new ip
-                server.login(sender, passwrd)
-                server.sendmail(sender, recipient, body)
-                log_txt.write('The message was sent successfully. \n \n')
-                break
-            except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
-                # if the email is not sent, wait for 5 seconds and try again.
-                log_txt.write("Message send Failure: '" + error + "', trying again. \n")
-                mail_error += 1
-                sleep(5)
-        elif mail_error == 5:
-            log_txt.write("Failed to log in after 5 attempts, cancel sending. Please check your email settings.\n")
+        try:  # email the new ip
+            server.login(sender, passwrd)
+            server.sendmail(sender, recipient, body)
+            log_txt.write('The message was sent successfully. \n \n')
             break
+        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
+            # if the email is not sent, wait for 5 seconds and try again.
+            log_txt.write("Message send Failure: '" + error + "', trying again. \n")
+            mail_error += 1
+            sleep(5)
 
     # Closing all opened files
     log_txt.close()
