@@ -21,13 +21,13 @@ done = False  # universal boolean for loops
 now = datetime.datetime.now()
 old = ''  # stores old wan
 
-
 # Reading settings file and applying settings
 settingsList = []
 findLocal = os.getcwd()
 findLocal = findLocal.strip("'\"\t\n")
 try:  # Linux/OSX settings file location
     settingsFile = findLocal + "/settings.txt"
+    statusFile = findLocal + "/status.txt"
     settings = open(settingsFile, 'r')
     for setting in settings:
         if setting.startswith('#'):
@@ -37,6 +37,7 @@ try:  # Linux/OSX settings file location
             settingsList.append(setting)
 except FileNotFoundError:  # Windows settings file location
     settingsFile = findLocal + '\\settings.txt'
+    statusFile = findLocal + "\\status.txt"
     settings = open(settingsFile, 'r')
     for setting in settings:
         if setting.startswith('#'):
@@ -133,7 +134,7 @@ def php_config(current_ip, php_location):
     config_rewrite.close()
 
 
-def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port):
+def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port, status_file):
     """
     :param log_txt: log for errors
     :param current_ip: what the ip to be sent is
@@ -143,10 +144,12 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     :param passwd: password of sender email
     :param server_address: address of the server
     :param server_port: server port being used
+    :param status_file: email status file
     :return:
 
     This function takes the various inputs and email the new server ip address to the receiving address
     """
+    record = open(status_file, 'w')
     mail_error = 0  # used to see how many times errors occurred
     server = smtplib.SMTP(server_address, server_port)  # server to be connected to
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
@@ -160,6 +163,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
 
     while not done:
         if mail_error == 3:
+
             log_txt.write("Failed to connect to the server 3 times, email not sent.\n")
             break
         try:
@@ -173,12 +177,15 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
             mail_error += 1
             sleep(5)
     if mail_error == 3:
+        record.write('1')
         pass  # if the server failed to connect, no email is sent and program ends.
     else:
+
         try:  # email the new ip
             server.login(sender, passwd)
             server.sendmail(sender, recipient, body)
             log_txt.write('The message was sent successfully. \n \n')
+            record.write('0')
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
                 smtplib.SMTPAuthenticationError) as error:
             # if the email is not sent, wait for 5 seconds and try again.
@@ -188,17 +195,31 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     log_txt.close()
     server.quit()
 
+
+def status_read(status_file):
+    """
+    :param status_file: status file of email
+    :return: email status
+    """
+    state = ''
+    status = open(status_file, 'r')
+    for line in status:
+        line = line.strip('\n')
+        state = int(line)
+    return state
+
 # End Definitions
 ##############################################################################################
 
 # Program start
 new = wan_check(command, log)  # sets the new ip to check against.
+currentState = status_read(statusFile)
 
 for ip in oldWan:  # This iterates over the old WAN IP and appends it to the old variable.
     ip.strip('\n')
     old += ip
 
-if new != old:  # if the ip has changed
+if new != old or currentState != 0:  # if the ip has changed
     # Updates the old wan to the current wan
     oldWan.close()
     oldWan = open(oldWanLocation, 'w')
@@ -215,7 +236,7 @@ if new != old:  # if the ip has changed
             log.write("php file not found at: " + str(phpFile) + " file not updated")
 
     # Sends new ip to email
-    send_mail(log, new, FROM, TO, SUBJECT, PASSWORD, EMAIL_SERVER, PORT_NUMBER)
+    send_mail(log, new, FROM, TO, SUBJECT, PASSWORD, EMAIL_SERVER, PORT_NUMBER, statusFile)
     log.close()
 
 else:  # executes if the wan hasn't changed.

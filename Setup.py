@@ -32,6 +32,7 @@ subject = ''
 serverAddress = ''
 serverPort = ''
 operatingSystem = ''
+status = ''
 ######################################################################################################################
 
 # Begin program
@@ -97,9 +98,11 @@ while not done:
             if q6.lower() == 'windows':  # Windows config
                 oldWan = pwd + '\\wan.txt'
                 logFile = pwd = '\\log.txt'
+                status = pwd + '\\status.txt'
             else:  # Linux and OSX config
                 oldWan = pwd + '/wan.txt'
                 logFile = pwd + '/log.txt'
+                status = pwd + '/status.txt'
 
             recipient = q2
             sender = q3
@@ -254,6 +257,9 @@ while not done:
                 if oldSettings is False:
                     log = open(logFile, 'w')
                     wan = open(oldWan, 'w')
+                    stat = open(status, 'w')
+                    stat.write('0')
+                    stat.close()
                     wan.close()
                     log.close()
                 done = True
