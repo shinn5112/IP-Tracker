@@ -1,4 +1,4 @@
-WAN IP Checker Version 4.5
+WAN IP Checker Version 4.6
 Setup Version 2
 Author: Patrick Shinn
 Last Update 1/22/16
