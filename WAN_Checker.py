@@ -133,7 +133,7 @@ def php_config(current_ip, php_location):
     config_rewrite.close()
 
 
-def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port, status):
+def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port):
     """
     :param log_txt: log for errors
     :param current_ip: what the ip to be sent is
@@ -148,7 +148,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     This function takes the various inputs and email the new server ip address to the receiving address
     """
     mail_error = 0  # used to see how many times errors occurred
-    server = smtplib.SMTP(server_address, server_port) # server to be connected to
+    server = smtplib.SMTP(server_address, server_port)  # server to be connected to
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
     msg = 'Your Server IP Address has changed to: ' + current_ip
     body = '\r\n'.join([
