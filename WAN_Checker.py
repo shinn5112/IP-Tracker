@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.5
+@version 4.6
 Last Update: 1/20/16
 
 This program is set up for all operating systems by setting adjustment.
@@ -147,7 +147,9 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     :param status_file: email status file
     :return:
 
-    This function takes the various inputs and email the new server ip address to the receiving address
+    This function takes the various inputs and emails the new server ip address to the receiving address.
+    If the server failed to connect within the limit, a status is written to an external file letting
+    the program know that it failed to connect on the last run, so it will try again.
     """
     record = open(status_file, 'w')
     mail_error = 0  # used to see how many times errors occurred
@@ -163,7 +165,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
 
     while not done:
         if mail_error == 3:
-
             log_txt.write("Failed to connect to the server 3 times, email not sent.\n")
             break
         try:
@@ -177,15 +178,14 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
             mail_error += 1
             sleep(5)
     if mail_error == 3:
-        record.write('1')
+        record.write('1')  # if the server connection failed, will try again next run
         pass  # if the server failed to connect, no email is sent and program ends.
     else:
-
+        record.write('0')  # if the connection was successful, the program will
         try:  # email the new ip
             server.login(sender, passwd)
             server.sendmail(sender, recipient, body)
             log_txt.write('The message was sent successfully. \n \n')
-            record.write('0')
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
                 smtplib.SMTPAuthenticationError) as error:
             # if the email is not sent, wait for 5 seconds and try again.
@@ -200,6 +200,8 @@ def status_read(status_file):
     """
     :param status_file: status file of email
     :return: email status
+
+    Reads the status and returns a value of 1 or 0
     """
     state = ''
     status = open(status_file, 'r')
