@@ -3,7 +3,7 @@ Setup Version 2
 Author: Patrick Shinn
 Last Update 1/22/16
 
-----------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 General Description
 
 The purpose of the software is to check the current IP address of the network it is on and record it. In the event that
