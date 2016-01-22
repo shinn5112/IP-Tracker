@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.4
+@version 4.5
 Last Update: 1/20/16
 
 This program is set up for all operating systems by setting adjustment.
@@ -133,7 +133,7 @@ def php_config(current_ip, php_location):
     config_rewrite.close()
 
 
-def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port):
+def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port, status):
     """
     :param log_txt: log for errors
     :param current_ip: what the ip to be sent is
@@ -175,17 +175,14 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     if mail_error == 3:
         pass  # if the server failed to connect, no email is sent and program ends.
     else:
-        while not done:
-            try:  # email the new ip
-                server.login(sender, passwd)
-                server.sendmail(sender, recipient, body)
-                log_txt.write('The message was sent successfully. \n \n')
-                break
-            except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
-                    smtplib.SMTPAuthenticationError) as error:
-                # if the email is not sent, wait for 5 seconds and try again.
-                log_txt.write("Message send Failure: '" + str(error) + "'. \n")
-                break
+        try:  # email the new ip
+            server.login(sender, passwd)
+            server.sendmail(sender, recipient, body)
+            log_txt.write('The message was sent successfully. \n \n')
+        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
+                smtplib.SMTPAuthenticationError) as error:
+            # if the email is not sent, wait for 5 seconds and try again.
+            log_txt.write("Message send Failure: '" + str(error) + "'. \n")
 
     # Closing all opened files
     log_txt.close()
