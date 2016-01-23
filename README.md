@@ -1,12 +1,10 @@
 Author: Patrick Shinn 
-
 Last Update 1/22/16 
-
 
 ------------------------------------------------------------------------------------------------------------------------
 ### General Description
-WAN IP Checker Version 4.6 
-Setup Version 2 
+WAN IP Checker Version: 4.6 
+Setup Version: 2 
 
 The purpose of the software is to check the current IP address of the network it is on and record it. In the event that
 the address changes, the program will send an email out to inform the server owner of the change. If owncloud is run on
