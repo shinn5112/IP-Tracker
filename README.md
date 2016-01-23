@@ -1,7 +1,7 @@
-WAN IP Checker Version 4.6
-Setup Version 2
-Author: Patrick Shinn
-Last Update 1/22/16
+WAN IP Checker Version 4.6 
+Setup Version 2 
+Author: Patrick Shinn 
+Last Update 1/22/16 
 
 ------------------------------------------------------------------------------------------------------------------------
 ### General Description
