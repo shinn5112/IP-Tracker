@@ -1,7 +1,7 @@
-WAN IP Checker Version 4.6
-Setup Version 2
-Author: Patrick Shinn
-Last Update 1/22/16
+WAN IP Checker Version: 4.6 
+Setup Version: 2 
+Author: Patrick Shinn 
+Last Update 1/22/16 
 
 ------------------------------------------------------------------------------------------------------------------------
 ### General Description
@@ -32,7 +32,7 @@ Make both Setup.py and WAN_Checker.py executable so that they may be run on your
  Run Setup.py, if you are on Linux and put the wan folder in /opt, you will need to run it with root permission. You
  can do this by typing this command in the terminal:
 
-sudo /opt/wan/Setup.py 
+* sudo /opt/wan/Setup.py 
 
 You will be asked for your password, then the program will execute. It is recommended that your first run of the setup
 software be done in easy mode. It will automatically configure all settings with minimal input from you. If you wish,
@@ -49,21 +49,21 @@ This will put all of the files capable of reading and writing to the settings fi
 other users can read the or change them. This also means that in order to run either Setup.py or WAN_Checker.py,
 you have to run them using sudo.
 
-6. Automation of WAN_Checker.py
+5. Automation of WAN_Checker.py
 This program was designed to be automated, this can be achieved using crontabs on Linux. To add do this, use the
 command: 
 
-sudo crontabs -u root -e 
+* sudo crontabs -u root -e 
 
 This will make a command that root executes, so the files can be run properly.
 Pick nano or the editor of your choice. Scroll to the bottom of the page, then add the following:
 
-* * * * * python3 /opt/wan/WAN_Checker.py 2> /opt/wan/error.log
+* * * * * * python3 /opt/wan/WAN_Checker.py 2> /opt/wan/error.log
 
 This will run the wan checker as root and record all errors to the wan directory. This is setup assuming that you used
 /opt as the install directory. If you installed it else where, please rerun the crontab command and edit it to be:
 
-* * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
+* * * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Trouble Shooting
