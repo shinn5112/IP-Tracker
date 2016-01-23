@@ -96,9 +96,9 @@ while not done:
                 break
             q6 = input("What is your operating system? Windows, OSX, or Linux?: ")
             if q6.lower() == 'windows':  # Windows config
-                oldWan = pwd + '\\wan.txt'
-                logFile = pwd = '\\log.txt'
-                status = pwd + '\\status.txt'
+                oldWan = pwd + '\wan.txt'
+                logFile = pwd = '\log.txt'
+                status = pwd + '\status.txt'
             else:  # Linux and OSX config
                 oldWan = pwd + '/wan.txt'
                 logFile = pwd + '/log.txt'
