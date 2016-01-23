@@ -36,8 +36,8 @@ try:  # Linux/OSX settings file location
             setting = setting.rstrip('\n')
             settingsList.append(setting)
 except FileNotFoundError:  # Windows settings file location
-    settingsFile = findLocal + '\\settings.txt'
-    statusFile = findLocal + "\\status.txt"
+    settingsFile = findLocal + '\settings.txt'
+    statusFile = findLocal + "\status.txt"
     settings = open(settingsFile, 'r')
     for setting in settings:
         if setting.startswith('#'):
