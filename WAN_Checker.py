@@ -21,7 +21,7 @@ done = False  # universal boolean for loops
 now = datetime.datetime.now()
 old = ''  # stores old wan
 
-# Reading settings file and applying settings
+# Reading settings file, applying settings, and preparing status file
 settingsList = []
 settingsFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.txt")
 settingsFile = settingsFile.strip('\n\t')
