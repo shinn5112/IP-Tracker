@@ -26,7 +26,7 @@ settingsList = []
 settingsFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.txt")
 settingsFile = settingsFile.strip('\n\t')
 statusFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "status.txt")
-statusFile = statusFile.strip('\n\y')
+statusFile = statusFile.strip('\n\t')
 settings = open(settingsFile, 'r')
 for setting in settings:
     if setting.startswith('#'):
