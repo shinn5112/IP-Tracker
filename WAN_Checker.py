@@ -23,28 +23,17 @@ old = ''  # stores old wan
 
 # Reading settings file and applying settings
 settingsList = []
-findLocal = os.getcwd()
-findLocal = findLocal.strip("'\"\t\n")
-try:  # Linux/OSX settings file location
-    settingsFile = findLocal + "/settings.txt"
-    statusFile = findLocal + "/status.txt"
-    settings = open(settingsFile, 'r')
-    for setting in settings:
-        if setting.startswith('#'):
-            pass
-        else:
-            setting = setting.rstrip('\n')
-            settingsList.append(setting)
-except FileNotFoundError:  # Windows settings file location
-    settingsFile = findLocal + '\settings.txt'
-    statusFile = findLocal + "\status.txt"
-    settings = open(settingsFile, 'r')
-    for setting in settings:
-        if setting.startswith('#'):
-            pass
-        else:
-            setting = setting.rstrip('\n')
-            settingsList.append(setting)
+settingsFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.txt")
+settingsFile = settingsFile.strip('\n\t')
+statusFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "status.txt")
+statusFile = statusFile.strip('\n\y')
+settings = open(settingsFile, 'r')
+for setting in settings:
+    if setting.startswith('#'):
+        pass
+    else:
+        setting = setting.rstrip('\n')
+        settingsList.append(setting)
 
 # Settings
 #############################################################################################
