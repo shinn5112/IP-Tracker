@@ -1,6 +1,0 @@
-
-The Server IP changed to: "206.212.30.92"
- on 2016-01-27 17:51:16.244469
-Successful connection to server. 
-The message was sent successfully. 
- 
