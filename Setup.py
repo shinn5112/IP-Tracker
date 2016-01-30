@@ -31,7 +31,6 @@ password = ''
 subject = ''
 serverAddress = ''
 serverPort = ''
-operatingSystem = ''
 status = ''
 ######################################################################################################################
 
@@ -50,17 +49,25 @@ if oldSettings is True:  # if old settings are found, read and imported
         settingsList.append(setting)
 
 print(welcomeText)
-if oldSettings is False:  # lets the user know that no previous settings were found
-    print("No previous settings were found, please select a configuration mode.\n")
-    print("1. Manual (Not recommended for novice programmers).\n"
-          "2. Easy Setup (recommended). \n")
-    mode = input("Enter your selection number: ")
-else:  # If a settings file is found, setup is opened in manual config mode.
-    print("A settings file was found, you can either edit the file or start fresh by deleting settings.txt. \n")
-    mode = '1'
+while not done:
+    if oldSettings is False:  # lets the user know that no previous settings were found
+        print("No previous settings were found, please select a configuration mode.\n")
+        print("1. Manual (Not recommended for novice programmers).\n"
+              "2. Easy Setup (recommended). \n")
+        mode = input("Enter your selection number: ")
+    else:  # If a settings file is found, setup is opened in manual config mode.
+        print("A settings file was found, you can either edit the file or start fresh by deleting settings.txt. \n")
+        mode = '1'
+    if int(mode) == 1:
+        break
+    elif int(mode) == 2:
+        break
+    else:
+        print("'" + mode + "' was not an option, please try again.")
+
 
 while not done:
-    if mode == '2':
+    if mode == '2':  # Easy mode
         while mode == '2':  # while in easy mode, this code executes
             # User will answer the following questions, and the script will try to automate as much as it can.
             q1 = input("Does your server run owncloud? yes/no: ")
@@ -94,21 +101,15 @@ while not done:
                     q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: ")
             if mode == '1':
                 break
-            q6 = input("What is your operating system? Windows, OSX, or Linux?: ")
-            if q6.lower() == 'windows':  # Windows config
-                oldWan = pwd + '\wan.txt'
-                logFile = pwd = '\log.txt'
-                status = pwd + '\status.txt'
-            else:  # Linux and OSX config
-                oldWan = pwd + '/wan.txt'
-                logFile = pwd + '/log.txt'
-                status = pwd + '/status.txt'
 
+            oldWan = pwd + '/wan.txt'
+            logFile = pwd + '/log.txt'
+            status = pwd + '/status.txt'
             recipient = q2
             sender = q3
             password = q4
-            operatingSystem = q6
             subject = q7
+
             #  Appends settings to settings list for writing
             settingsList.append(phpConfig)
             settingsList.append(logFile)
@@ -119,7 +120,6 @@ while not done:
             settingsList.append(subject)
             settingsList.append(serverAddress)
             settingsList.append(serverPort)
-            settingsList.append(operatingSystem)
             mode = '1'
 
     elif mode == '1':  # manual config mode
@@ -147,8 +147,6 @@ while not done:
             subject = input("What should the subject of the email be?: ")
             serverAddress = input("What is you email providers server address?: ")
             serverPort = input("What port number does your email sever use?: ")
-            operatingSystem = input("What is your operating system? Windows, Linux, or OSX(apple)?: ")
-
             # Appending settings to setting list for temporary storage
             settingsList.clear()  # clears all settings for clean write
             settingsList.append(phpConfig)
@@ -160,7 +158,6 @@ while not done:
             settingsList.append(subject)
             settingsList.append(serverAddress)
             settingsList.append(serverPort)
-            settingsList.append(operatingSystem)
             print('\n' * 5)
 
         # edit settings
@@ -177,8 +174,7 @@ while not done:
                       '6. sender password\n'
                       '7. subject\n'
                       '8. email server address\n'
-                      '9. email server port\n'
-                      '10. operating system\n')
+                      '9. email server port\n')
                 userChange = input("Please select a number option or type 'done' to exit: ")
                 if userChange == '1':
                     userRewrite = input("What should the new php.config location be?: ")
@@ -216,10 +212,6 @@ while not done:
                     userRewrite = input("What should the new server port be?: ")
                     settingsList.pop(8)
                     settingsList.insert(8, userRewrite)
-                elif userChange == '10':
-                    userRewrite = input("What should the new operating system be?: ")
-                    settingsList.pop(9)
-                    settingsList.insert(9, userRewrite)
                 elif userChange.lower() == 'done':
                     break
                 else:
@@ -237,7 +229,6 @@ while not done:
             print('The email email subject is: ' + settingsList[6])
             print('The email server address is: ' + settingsList[7])
             print('The email server port is: ' + str(settingsList[8]))
-            print('The operating system is: ' + settingsList[9])
             print('\n' * 2)
 
         # Write settings
