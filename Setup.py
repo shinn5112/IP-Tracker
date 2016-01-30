@@ -15,8 +15,7 @@ settingWrite = False  # checks to see if the setting were written before closing
 mode = ''  # first run mode question storage
 welcomeText = 'This program will configure the settings for WAN_Checker.py, to ensure that \n' \
               'the settings are correct, please be sure to enter the correct information. Spelling counts.\n' \
-              'If you are having issues or have questions, please refer to the README.txt. \n' \
-              'Windows support is in beta at this time. \n'
+              'If you are having issues or have questions, please refer to the README.txt. \n'
 pwd = os.getcwd()  # gets current
 pwd = pwd.strip('"\'\n\t')
 
