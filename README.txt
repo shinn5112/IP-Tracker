@@ -58,12 +58,12 @@ sudo crontabs -u root -e
 This will make a command that root executes, so the files can be run properly.
 Pick nano or the editor of your choice. Scroll to the bottom of the page, then add the following:
 
-* * * * * python3 /opt/wan/WAN_Checker.py 2> /opt/wan/error.log
+* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/error.log
 
 This will run the wan checker as root and record all errors to the wan directory. This is setup assuming that you used
 /opt as the install directory. If you installed it else where, please rerun the crontab command and edit it to be:
 
-* * * * * * python3 path/to/WAN_Checker.py 2> /path/to/wan folder
+* * * * * * python3 path/to/WAN_Checker.py 2>> /path/to/wan folder
 
 ------------------------------------------------------------------------------------------------------------------------
 Trouble Shooting
