@@ -38,14 +38,7 @@ for setting in settings:
 # Settings
 #############################################################################################
 # OS cli command for wan ip extraction
-command = ''
-system = settingsList[9]
-if system.lower() == 'windows':
-    command = 'nslookup myip.opendns.com resolver1.opendns.com'  # untested widows command
-elif system.lower() == 'linux':
-    command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # linux cli command
-elif system.lower() == 'osx':
-    command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX cli command
+command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX cli command
 
 # File locations
 phpFile = settingsList[0]           # path to owncloud config.php
