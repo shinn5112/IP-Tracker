@@ -73,7 +73,12 @@ def wan_check(cli_command, log_file):
     while not done:  # continues until IP can be procured
         check = os.popen(cli_command)
         read = check.read()
+        # catches the listed errors and retries or returns the correct WAN IP.
         if read == ';; connection timed out; no servers could be reached':
+            log_file.write('WAN Error: ' + str(read) + ' reattempting. \n')
+            sleep(5)
+            continue
+        elif read == ' ;; connection timed out; no servers could be reached':
             log_file.write('WAN Error: ' + str(read) + ' reattempting. \n')
             sleep(5)
             continue
