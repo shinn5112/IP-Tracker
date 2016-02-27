@@ -1,8 +1,8 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.6
-Last Update: 1/22/16
+@version 4.7
+Last Update: 2/25/16
 
 This program is set up for all operating systems by setting adjustment.
 If run on Linux, please add the following to the very top of the file:
