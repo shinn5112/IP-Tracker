@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.7
+@version 4.8
 Last Update: 2/25/16
 
 This program is set up for all operating systems by setting adjustment.
@@ -38,7 +38,7 @@ for setting in settings:
 # Settings
 #############################################################################################
 # OS cli command for wan ip extraction
-command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX cli command
+command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX/Linux cli command
 
 # File locations
 phpFile = settingsList[0]           # path to owncloud config.php
@@ -71,8 +71,11 @@ def wan_check(cli_command, log_file):
     """
     read = ''  # stores read from loop.
     while not done:  # continues until IP can be procured
+        # sends dig command to command line, reads it, then converts it to string removing all new lines, tabs
         check = os.popen(cli_command)
         read = check.read()
+        read = str(read)
+        read = read.strip("\n\t")
         # catches the listed errors and retries or returns the correct WAN IP.
         if read == ';; connection timed out; no servers could be reached':
             log_file.write('WAN Error: ' + str(read) + ' reattempting. \n')
@@ -104,15 +107,15 @@ def php_config(current_ip, php_location):
     :param current_ip: ip to be written to owncloud config.php
     :param php_location: path to owncloud config.php
     """
-    line_number = 0
-    line_store = []
+    line_number = 0  # starting line number
+    line_store = []  # stores lines to write to config.php
     current_ip = current_ip.strip('\n"')
-    config = open(php_location, 'r')
+    config = open(php_location, 'r')  # read the current config.php
     for line in config:
         if line_number != 8:
-            line_store.append(line)
+            line_store.append(line)  # if not line 8, copy lines verbatim to line_store for rewriting
         else:
-            line_store.append("    1 => '" + current_ip + "'," + '\n')
+            line_store.append("    1 => '" + current_ip + "'," + '\n')  # replace this line with the new IP address
         line_number += 1
     config.close()
     config_rewrite = open(php_location, 'w+')
@@ -208,7 +211,7 @@ for ip in oldWan:  # This iterates over the old WAN IP and appends it to the old
     ip.strip('\n')
     old += ip
 
-if new != old or currentState != 0:  # if the ip has changed
+if new != old or currentState != 0:  # if the ip has changed or something went wrong on the last run
     # Updates the old wan to the current wan
     oldWan.close()
     oldWan = open(oldWanLocation, 'w')
