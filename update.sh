@@ -7,11 +7,11 @@ echo "Updating WAN_Checker.py and Setup.py to the newest version: pulling from G
 git pull > tmp 2> tmp.error
 update=$( tail tmp | grep "Already up-to-date.")
 if [[ $update == "Already up-to-date." ]]
-then echo $update; rm tmp; exit
+then echo $update; rm tmp tmp.error; exit
 fi
 update=$(tail tmp.error | grep "fatal: Could not read from remote repository.")
 if [[ $update == "fatal: Could not read from remote repository." ]]
-then echo "Could not reach the repository, please check your internet connection and try again."; rm tmp; exit
+then echo "Could not reach the repository, please check your internet connection and try again."; rm tmp tmp.error; exit
 else echo "Update found, updating to newest version."
 fi
 rm tmp tmp.error
