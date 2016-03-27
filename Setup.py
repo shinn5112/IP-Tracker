@@ -123,7 +123,7 @@ while not done:
 
     elif mode == '1':  # manual config mode
         # Options menu
-        print("What would you like to do? \n"
+        print("\nWhat would you like to do? \n"
               "1. Configure Settings\n"
               "2. Edit Settings\n"
               "3. Check settings\n"
@@ -157,7 +157,6 @@ while not done:
             settingsList.append(subject)
             settingsList.append(serverAddress)
             settingsList.append(serverPort)
-            print('\n' * 5)
 
         # edit settings
         elif userChoice == '2':
@@ -228,14 +227,13 @@ while not done:
             print('The email email subject is: ' + settingsList[6])
             print('The email server address is: ' + settingsList[7])
             print('The email server port is: ' + str(settingsList[8]))
-            print('\n' * 2)
 
         # Write settings
         elif userChoice == '4':
             setting = open('settings.txt', 'w')  # Settings file to be written to
             for item in settingsList:
                 setting.write(item + '\n')
-            print('Settings written. \n')
+            print('Settings written.')
             settingWrite = True
             setting.close()
 

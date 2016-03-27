@@ -7,7 +7,7 @@ Home Server WAN-Tracker Package V 1.0
 * WAN IP Checker Version: 4.8
 * Setup Version: 2.0
 * Install Script Version: 1.0
-* Update Script Version: 1.1
+* Update Script Version: 2.0
 * Uninstall Script Version: 1.0
 
 ------------------------------------------------------------------------------------------------------------------------
