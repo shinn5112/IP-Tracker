@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # WAN-Tracker update script
-#  Author Patrick Shinn
+# Author Patrick Shinn
 # Version 2.0
 # Last updated 3/27/16
 echo "Updating WAN_Checker.py and Setup.py to the newest version: pulling from GitHub"
