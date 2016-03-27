@@ -2,8 +2,9 @@ WAN IP Checker Version: 4.6
 Setup Version: 2 
 Install Script Version: 1
 Update Script Version: 1.1
+Uninstall Script Version: 1.0
 Author: Patrick Shinn 
-Last Update 1/22/16 
+Last Update 3/27/16 
 
 ------------------------------------------------------------------------------------------------------------------------
 ### General Description
@@ -32,7 +33,9 @@ To update this software, you must have git installed on your machine. To update,
 update.sh executable. Then run it, following the on screen prompts.
  
 3. Uninstall
-Comming soon.
+To remove WAN-Tracker, cd into the WAN-Tracker folder and make uninstall.sh executable. Then run uninstall and follow
+the on screen prompts. You may wish to make a copy of root's crontab file before hand as this program will wipe it.
+Typically root has no crontab processes, so you should be safe if you don't. 
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Trouble Shooting

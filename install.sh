@@ -18,7 +18,7 @@ clear
 sudo chown root:root Setup.py WAN_Checker.py
 sudo ./Setup.py
 clear
-echo "Securing settings file"
+echo "Securing settings files"
 sleep 2
 sudo chown root:root settings.txt log.txt status.txt wan.txt
 sudo chmod 700 settings.txt
