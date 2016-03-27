@@ -1,5 +1,7 @@
 WAN IP Checker Version: 4.6 
 Setup Version: 2 
+Install Script Version: 1
+Update Script Version: 1.1
 Author: Patrick Shinn 
 Last Update 1/22/16 
 
@@ -21,49 +23,16 @@ This software was also developed and tested in Linux based environment.  It has 
 be cross platform, but has never been tested on windows.
 
 1. Install
-Both Setup.py and WAN_Checker.py should be in a folder called wan-tracker. Place thia folder where ever you want on your
-system. It is advised that if you run Linux that you place the wan folder in /opt as this is the optional software
-directory.
+Please ensure that you have Python 3 installed on your system before running this software.
+Clone the WAN_Tracker repository to the machine you wish to install on, the cd into the WAN-Tracker folder and make 
+install.sh executable. Then run it, following the on screen prompts.
 
-2. Make Executable
-Make both Setup.py and WAN_Checker.py executable so that they may be run on your system.
-
-3. Setup First Run
- Run Setup.py, if you are on Linux and put the wan folder in /opt, you will need to run it with root permission. You
- can do this by typing this command in the terminal:
-
-* sudo /opt/wan/Setup.py 
-
-You will be asked for your password, then the program will execute. It is recommended that your first run of the setup
-software be done in easy mode. It will automatically configure all settings with minimal input from you. If you wish,
-you can also run manual configuration, but this is not recommended unless you know what you are doing.
-
-
-4. Securing Your Instillation
-Now that everything is installed and working, you need to secure these files as they contain sensitive information such
-as email password. To do this on a Linux system or a mac, open the terminal and cd into the wan directory.
-Then use the following command:
-sudo chown root:root *; sudo chmod 700 Setup.py WAN_Checker.py; sudo chmod 500 settings.txt status.txt
-
-This will put all of the files capable of reading and writing to the settings file under the control of root, meaning no
-other users can read the or change them. This also means that in order to run either Setup.py or WAN_Checker.py,
-you have to run them using sudo.
-
-5. Automation of WAN_Checker.py
-This program was designed to be automated, this can be achieved using crontabs on Linux. To add do this, use the
-command: 
-
-* sudo crontabs -u root -e 
-
-This will make a command that root executes, so the files can be run properly.
-Pick nano or the editor of your choice. Scroll to the bottom of the page, then add the following:
-
-* * * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/error.log
-
-This will run the wan checker as root and record all errors to the wan directory. This is setup assuming that you used
-/opt as the install directory. If you installed it else where, please rerun the crontab command and edit it to be:
-
-* * * * * * * python3 path/to/WAN_Checker.py 2>> /path/to/wan folder
+2. Update
+To update this software, you must have git installed on your machine. To update, cd into the WAN-Tracker folder and make
+update.sh executable. Then run it, following the on screen prompts.
+ 
+3. Uninstall
+Comming soon.
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Trouble Shooting
