@@ -169,7 +169,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
             sleep(2)
     if mail_error == 3:
         record.write('1')  # if the server connection failed, will try again next run
-        pass  # if the server failed to connect, no email is sent and program ends.
+        return 0  # if the server failed to connect, no email is sent and program ends.
     else:
         record.write('0')  # if the connection was successful, the program will
         try:  # email the new ip
