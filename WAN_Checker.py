@@ -162,7 +162,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
             server.starttls()
             server.ehlo()
             log_txt.write("Successful connection to server. \n")
-            break
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
             log_txt.write("Connection to server failed: '" + str(error) + "', trying again. \n")
             mail_error += 1
@@ -231,7 +230,6 @@ if new != old or currentState != 0:  # if the ip has changed or something went w
     send_mail(log, new, FROM, TO, SUBJECT, PASSWORD, EMAIL_SERVER, PORT_NUMBER, statusFile)
     log.close()
 
-else:  # executes if the wan hasn't changed.
+else:  # executes if the wan hasn't changed, do nothing.
     oldWan.close()
     log.close()
-    pass  # do nothing
