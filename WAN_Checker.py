@@ -143,7 +143,6 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     """
     record = open(status_file, 'w')
     fail_send = False
-    mail_error = 0  # used to see how many times errors occurred
     server = smtplib.SMTP(server_address, server_port)  # server to be connected to
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
     msg = 'Your Server IP Address has changed to: ' + current_ip
