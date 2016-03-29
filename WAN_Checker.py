@@ -162,7 +162,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
         log_txt.write("Connection to server failed: '" + str(error) + "', exiting.  Will reattempt on next run. \n")
         record.write('1')  # if the server connection failed, will try again next run
-        fail_send = True  # leting the program know the message didn't send.
+        fail_send = True  # letting the program know the message didn't send.
     if fail_send is True:
         return 0  # if the server failed to connect, no email is sent and program ends.
     else:
