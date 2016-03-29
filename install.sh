@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # WAN-Tracker install script
 # Author Patrick Shinn
-# Version 1.0
+# Version 2.0
 # Last updated 3/27/16
 echo "Thank you for installing WAN-Tracker. Your install will begin soon."
 echo "Please ensure that you have Python 3 installed before executing this script."
@@ -28,5 +28,9 @@ sudo chmod -x settings.txt log.txt status.txt wan.txt errorlog.txt
 echo "Installing crontab for automation under root."
 sleep 2
 echo "* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/errorlog.txt" | sudo crontab -u root -
+read -p "Would you like to receive automatic updates? y/n: " answer
+if [[ $answer == "y" ]]
+then echo "Installing auto-update crontab.";echo "0 0 * * * /opt/wan/auto-update.sh 2>> /opt/wan/update_errorlog.txt" | sudo crontab -u root -; sudo chown root:root update_errorlog.txt; sudo chmod 740 update_errorlog.txt; echo "Auto updates enabled."
+fi
 echo "Install complete. Please check your designated recipient email in two minutes or so."
 sleep 4

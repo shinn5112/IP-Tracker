@@ -2,7 +2,7 @@
 """
 @author Patrick Shinn
 @version 4.8
-Last Update: 3/27/16
+Last Update: 2/25/16
 
 This program is set up for all operating systems by setting adjustment.
 If run on Linux, please add the following to the very top of the file:
@@ -142,6 +142,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     the program know that it failed to connect on the last run, so it will try again.
     """
     record = open(status_file, 'w')
+    fail_send = False
     mail_error = 0  # used to see how many times errors occurred
     server = smtplib.SMTP(server_address, server_port)  # server to be connected to
     log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
@@ -153,22 +154,16 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
         '',
         msg])
 
-    while not done:
-        if mail_error == 3:
-            log_txt.write("Failed to connect to the server 3 times, email not sent.\n")
-            break
-        try:
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            log_txt.write("Successful connection to server. \n")
-            break
-        except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
-            log_txt.write("Connection to server failed: '" + str(error) + "', trying again. \n")
-            mail_error += 1
-            sleep(2)
-    if mail_error == 3:
+    try:
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        log_txt.write("Successful connection to server. \n")
+    except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError) as error:
+        log_txt.write("Connection to server failed: '" + str(error) + "', exiting.  Will reattempt on next run. \n")
         record.write('1')  # if the server connection failed, will try again next run
+        fail_send = True  # letting the program know the message didn't send.
+    if fail_send is True:
         return 0  # if the server failed to connect, no email is sent and program ends.
     else:
         record.write('0')  # if the connection was successful, the program will
@@ -231,7 +226,6 @@ if new != old or currentState != 0:  # if the ip has changed or something went w
     send_mail(log, new, FROM, TO, SUBJECT, PASSWORD, EMAIL_SERVER, PORT_NUMBER, statusFile)
     log.close()
 
-else:  # executes if the wan hasn't changed.
+else:  # executes if the wan hasn't changed, do nothing.
     oldWan.close()
     log.close()
-    pass  # do nothing
