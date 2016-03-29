@@ -28,7 +28,7 @@ sudo chmod -x settings.txt log.txt status.txt wan.txt errorlog.txt
 echo "Installing crontab for automation under root."
 sleep 2
 echo "* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/errorlog.txt" | sudo crontab -u root -
-read -p "Would you like to receive automatic updates? y/n: " answer
+read -p "Would you like to receive automatic updates? This feature is experimental, so use at your own risk. y/n: " answer
 if [[ $answer == "y" ]]
 then echo "Installing auto-update crontab.";echo "0 0 * * * /opt/wan/auto-update.sh 2>> /opt/wan/update_errorlog.txt" | sudo crontab -u root -; sudo chown root:root update_errorlog.txt; sudo chmod 740 update_errorlog.txt; echo "Auto updates enabled."
 fi
