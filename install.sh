@@ -3,14 +3,16 @@
 # Author Patrick Shinn
 # Version 2.0
 # Last updated 3/27/16
+
+localRepo= pwd
 echo "Thank you for installing WAN-Tracker. Your install will begin soon."
 echo "Please ensure that you have Python 3 installed before executing this script."
 sudo -S mkdir -v /opt/wan
 echo "Moving files to /opt/wan folder."
-sudo cp -v Setup.py WAN_Checker.py /opt/wan
+sudo cp -v Setup.py WAN_Checker.py auto-update.sh /opt/wan
 cd /opt/wan
-sudo chmod +x Setup.py WAN_Checker.py
-sudo chmod 700 Setup.py WAN_Checker.py
+sudo chmod +x Setup.py WAN_Checker.py auto-update.sh
+sudo chmod 700 Setup.py WAN_Checker.py auto-update.sh
 sleep 3
 echo "Starting setup program, please use Easy setup if you are a first time user."
 sleep 6
@@ -30,7 +32,7 @@ sleep 2
 echo "* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/errorlog.txt" | sudo crontab -u root -
 read -p "Would you like to receive automatic updates? y/n: " answer
 if [[ $answer == "y" ]]
-then echo "Installing auto-update crontab.";(sudo crontab -u root -l; echo "* * * * * /opt/wan/auto-update.sh 2>> /opt/wan/update_errorlog.txt")| sudo crontab -u root -;sudo touch updateErrorLog.txt updateLog.txt; sudo chown root:root updateErrorLog.txt updateLog.txt; sudo chmod 740 updateErrorLog.txt updateLog.txt; sudo chmod -x updateErrorLog.txt updateLog.txt; echo "Auto updates enabled."
+then echo "Installing auto-update crontab.";(sudo crontab -u root -l; echo -n "* * * * * "; echo -n $lo " 2>> /opt/wan/updateErrorLog.txt")| sudo crontab -u root -;sudo touch updateErrorLog.txt updateLog.txt; sudo chown root:root updateErrorLog.txt updateLog.txt; sudo chmod 740 updateErrorLog.txt updateLog.txt; sudo chmod -x updateErrorLog.txt updateLog.txt; echo "Auto updates enabled."
 fi
 echo "Install complete. Please check your designated recipient email in two minutes or so."
 sleep 4
