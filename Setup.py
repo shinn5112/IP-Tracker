@@ -75,7 +75,7 @@ while not done:
             else:
                 q1 = input("What is the absolute path to your config.php file?: ")
                 phpConfig = q1
-            q2 = input("What email would you like address changes to be send to?: ")
+            q2 = input("What email would you like address changes to be sent to?: ")
             q3 = input("What email would you like to send the alerts from?: ")
             q4 = input("What is the sender email's password?: ")
             q7 = input("What would you like the email's subject to be?: ")
