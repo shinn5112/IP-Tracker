@@ -5,6 +5,8 @@
 # Last updated 4/8/16
 
 # creates a tmp file for output and a tmp file for errors
+localRepo=$(cat /opt/wan/pwd.txt)
+cd $localRepo
 git pull > tmp 2> tmp.error
 # checks tmp file to see if already up to date, if so, exit
 update=$( tail tmp | grep "Already up-to-date.")
@@ -20,6 +22,7 @@ else (echo -n "Software update found, updating on: "; echo $(date)) >> /opt/wan/
 fi
 # remove unnecessary tmp files, and update the software.
 rm tmp tmp.error
+
 cp -vf Setup.py WAN_Checker.py /opt/wan
 cd /opt/wan
 chmod +x Setup.py WAN_Checker.py

@@ -40,8 +40,13 @@ echo "* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/errorlog.txt" | sud
 # Auto-update install and setup.
 read -p "Would you like to receive automatic updates? y/N: " answer
 if [[ $answer == "y" ]]
-then echo "Installing auto-update crontab."; (sudo -S crontab -u root -l; echo -n "* * * * * "; echo -n $localRepo; echo "/auto-update.sh 2>> /opt/wan/updateErrorLog.txt") | sudo crontab -u root -; sudo touch updateErrorLog.txt updateLog.txt; sudo chown root:root updateErrorLog.txt updateLog.txt; sudo chmod 744 updateErrorLog.txt updateLog.txt; sudo chmod -x updateErrorLog.txt updateLog.txt; echo "Auto updates enabled."
+then echo "Installing auto-update crontab."; (sudo -S crontab -u root -l; echo -n "0 0 * * * "; echo -n $localRepo; echo "/auto-update.sh 2>> /opt/wan/updateErrorLog.txt") | sudo crontab -u root -; sudo touch updateErrorLog.txt updateLog.txt; sudo chown root:root updateErrorLog.txt updateLog.txt; sudo chmod 744 updateErrorLog.txt updateLog.txt; sudo chmod -x updateErrorLog.txt updateLog.txt; echo "Auto updates enabled."
 fi
+
+# Records git repo for auto-updater
+sudo echo $localRepo > pwd.txt
+sudo chown root:root pwd.txt
+sudo chmod 544 pwd.txt
 
 # Ends installation, prints a messages to the user letting them know.
 echo "Install complete. Please check your designated recipient email in two minutes or so."
