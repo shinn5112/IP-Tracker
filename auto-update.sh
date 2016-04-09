@@ -2,7 +2,7 @@
 # WAN-Tracker update script
 # Author Patrick Shinn
 # Version 1.0
-# Last updated 3/27/16
+# Last updated 4/8/16
 
 # creates a tmp file for output and a tmp file for errors
 git pull > tmp 2> tmp.error
