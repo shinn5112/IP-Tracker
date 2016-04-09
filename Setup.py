@@ -2,7 +2,7 @@
 """
 @author Patrick Shinn
 @version 2
-Last Updated: 1/22/16
+Last Updated: 4/8/16
 This is the setting setup for WAN_Checker.py, run this before running WAN_Checker.py
 This program will ask a series of ten questions to the user to get the proper settings.
 """
@@ -75,7 +75,7 @@ while not done:
             else:
                 q1 = input("What is the absolute path to your config.php file?: ")
                 phpConfig = q1
-            q2 = input("What email would you like address changes to be send to?: ")
+            q2 = input("What email would you like address changes to be sent to?: ")
             q3 = input("What email would you like to send the alerts from?: ")
             q4 = input("What is the sender email's password?: ")
             q7 = input("What would you like the email's subject to be?: ")

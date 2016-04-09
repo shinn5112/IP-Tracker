@@ -1,6 +1,6 @@
 Author: Patrick Shinn  
-Last Update: 3/27/16  
-Home Server WAN-Tracker Package Version: 1.0
+Last Update: 4/8/16
+Home Server WAN-Tracker Package Version: 2.0
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Contents
@@ -8,6 +8,7 @@ Home Server WAN-Tracker Package Version: 1.0
 * Setup Version: 2.0
 * Install Script Version: 1.0
 * Update Script Version: 2.0
+* Auto-Update Script Version: 1.0
 * Uninstall Script Version: 1.0
 
 ------------------------------------------------------------------------------------------------------------------------
