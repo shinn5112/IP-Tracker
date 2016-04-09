@@ -254,8 +254,8 @@ while not done:
             else:  # else tell the user that no settings were saved
                 print("Your settings were never saved, to save your settings please write them before closing the "
                       "program.")
-                retry = input("Would you like to go back and save your settings? yes/no: ")
-                if retry.lower() == 'yes':
+                retry = input("Would you like to go back and save your settings? y/N: ")
+                if retry.lower() == 'y':
                     continue
                 else:
                     done = True
