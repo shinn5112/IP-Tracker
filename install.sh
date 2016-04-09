@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # WAN-Tracker install script
-# Author Patrick Shinn
+# Author: Patrick Shinn
 # Version 2.0
 # Last updated 4/8/16
 
@@ -10,7 +10,7 @@ localRepo=$(pwd)
 # saves github repo clone directory for auto-update usage.
 sudo echo $localRepo > pwd.txt
 
-# Begin program 
+# Begin program
 echo "Thank you for installing WAN-Tracker. Your install will begin soon."
 echo "Please ensure that you have Python 3 installed before executing this script."
 
