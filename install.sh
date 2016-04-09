@@ -2,7 +2,7 @@
 # WAN-Tracker install script
 # Author Patrick Shinn
 # Version 2.0
-# Last updated 4/1/16
+# Last updated 4/8/16
 
 # saves github repo clone directory for crontab installation for auto-update.
 localRepo=$(pwd)
