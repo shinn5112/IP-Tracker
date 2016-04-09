@@ -17,7 +17,7 @@ fi
 # checks error file to see if connecting to server failed, if not, begin update, otherwise exit
 update=$(tail tmp.error | grep "fatal: Could not read from remote repository.")
 if [[ $update == "fatal: Could not read from remote repository." ]]
-then  rm tmp tmp.error; echo $update >> /opt/wan/updateErrorLog.txt; exit
+then  rm tmp tmp.error; (echo -n $update; echo $(date)) >> /opt/wan/updateErrorLog.txt; exit
 else (echo -n "Software update found, updating on: "; echo $(date)) >> /opt/wan/updateLog.txt
 fi
 # remove unnecessary tmp files, and update the software.
