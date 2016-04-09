@@ -6,7 +6,11 @@
 
 # saves github repo clone directory for crontab installation for auto-update.
 localRepo=$(pwd)
+
+# saves github repo clone directory for auto-update usage.
 sudo echo $localRepo > pwd.txt
+
+# Begin program
 echo "Thank you for installing WAN-Tracker. Your install will begin soon."
 echo "Please ensure that you have Python 3 installed before executing this script."
 
