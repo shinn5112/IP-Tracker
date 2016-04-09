@@ -17,7 +17,7 @@ sudo cp -v Setup.py WAN_Checker.py pwd.txt /opt/wan
 cd /opt/wan
 # Changes to the new wan directory, and secures the program files
 sudo chown root:root Setup.py WAN_Checker.py pwd.txt
-sudo chmod 544 pwd.txt
+sudo chmod 644 pwd.txt
 sudo chmod +x Setup.py WAN_Checker.py
 sudo chmod 700 Setup.py WAN_Checker.py
 sleep 3
