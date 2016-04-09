@@ -7,6 +7,7 @@ Home Server WAN-Tracker Package Version 2.0
 * Setup Version: 2.0
 * Install Script Version: 1.0
 * Update Script Version: 2.0
+* Auto-Update Script Version: 1.0
 * Uninstall Script Version: 1.0
 
 ------------------------------------------------------------------------------------------------------------------------
