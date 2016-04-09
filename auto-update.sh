@@ -23,7 +23,7 @@ fi
 # remove unnecessary tmp files, and update the software.
 rm tmp tmp.error
 
-cp -vf Setup.py WAN_Checker.py /opt/wan
+cp -f Setup.py WAN_Checker.py /opt/wan
 cd /opt/wan
 chmod +x Setup.py WAN_Checker.py
 chown root:root Setup.py WAN_Checker.py
