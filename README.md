@@ -1,6 +1,9 @@
 Author: Patrick Shinn  
 Last Update: 4/8/16
-Home Server WAN-Tracker Package Version: 2.0
+
+Home Server WAN-Tracker Package Version: 3.0.0
+
+![License](https://img.shields.io/badge/license-GPLV3-blue.svg)
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Contents
