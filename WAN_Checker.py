@@ -38,8 +38,8 @@ for setting in settings:
 # Settings
 #############################################################################################
 # OS cli command for wan ip extraction
-# command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX/Linux cli command for WAN
-command = "ifconfig wlan0 | grep \"inet \" | awk -F'[: ]+' '{ print $3 }' #OSX/Linux cli command for LAN"
+command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX/Linux cli command for WAN
+# command = "ifconfig wlan0 | grep \"inet \" | awk -F'[: ]+' '{ print $3 }' #OSX/Linux cli command for LAN"
 
 # File locations
 phpFile = settingsList[0]           # path to owncloud config.php
