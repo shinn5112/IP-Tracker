@@ -1,25 +1,23 @@
 Author: Patrick Shinn  
-Last Update: 4/8/16
-
-Home Server WAN-Tracker Package Version: 3.0.0
+Automated IP tracker for Linux
 
 ![Version](http://github-release-version.herokuapp.com/github/shinn16/WAN-Tracker/release.svg)
 ![License](https://img.shields.io/badge/license-GPLV3-blue.svg)
 
 ------------------------------------------------------------------------------------------------------------------------
 ### Contents
-* WAN IP Checker Version: 4.8
-* Setup Version: 2.0
-* Install Script Version: 1.0
-* Update Script Version: 2.0
-* Auto-Update Script Version: 1.0
-* Uninstall Script Version: 1.0
+* IP Tracking Script
+* Setup Script
+* Install Script
+* Update Script
+* Auto-Update Script
+* Uninstall Script
 
 ------------------------------------------------------------------------------------------------------------------------
 ### General Description
 
 The purpose of the software is to check the current IP address of the network it is on and record it. In the event that
-the address changes, the program will send an email out to inform the server owner of the change. If owncloud is run on
+the address changes, the program will send an email out to inform the server owner of the change. If NextCloud is run on
 the server, the config file will automatically be updated to allow access from the new address.  In order to run this
 software, the system will need at least python 3.4 installed.  You will also need to install git on the system to ensure
 that the scripts run properly.  WAN-Tracker was designed in a way that if you have python 3 and git installed, you
@@ -28,8 +26,8 @@ should need no additional packages for it to run properly.
 ------------------------------------------------------------------------------------------------------------------------
 ### Setup
 
-This software was designed for use on a home server using owncloud. This software may still be used if you do not run an
-owncloud installation. Follow the directions to successfully install and use WAN-Tracker.
+This software was designed for use on a home server using NextCloud. This software may still be used if you do not run an
+NextCloud installation. Follow the directions to successfully install and use WAN-Tracker.
 It is advised that you make an email account specifically for your server such as myserver@example.com
 This was built using a gmail email for the email server, but has been tested for use with yahoo accounts as well.
 This software was developed and tested in a Linux environment.  It has been developed in a way that it should
