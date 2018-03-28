@@ -1,5 +1,5 @@
 Author: Patrick Shinn  
-Automated IP tracker for Debian based Linux Linux
+Automated IP tracker for Debian based Linux
 
 ![License](https://img.shields.io/badge/license-GPLV3-blue.svg)
 
