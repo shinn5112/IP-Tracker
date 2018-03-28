@@ -147,10 +147,10 @@ while not done:
         if userChoice == '1':
             settingWrite = False
             settingsList = []
-            phpConfig = input("What is the path to your NextCloud config.php file? If you do not"
+            phpConfig = input("What is the path to your NextCloud config.php file? If you do not "
                               "have one, put 'none': ")
             logFile = input("What is the path to your desired log file location?: ")
-            ip = input("What is the path to your desired wan storage? This "
+            ip = input("What is the path to your desired ip storage? This "
                            "should be in the same folder as WAN_Checker.py: ")
             recipient = input("What email should the email be sent to?: ")
             sender = input("What email will be sending the message?: ")
