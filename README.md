@@ -1,5 +1,5 @@
 Author: Patrick Shinn  
-Automated IP tracker for Linux
+Automated IP tracker for Debian based Linux Linux
 
 ![Version](http://github-release-version.herokuapp.com/github/shinn16/WAN-Tracker/release.svg)
 ![License](https://img.shields.io/badge/license-GPLV3-blue.svg)

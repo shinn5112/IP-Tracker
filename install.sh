@@ -53,7 +53,7 @@ fi
 echo "Installing package dependencies"
 sudo apt-get update
 sudo apt-get install python3-pip
-pip3 install -r $localRepo/requirements.txt
+sudo pip3 install -r $localRepo/requirements.txt
 
 # Ends installation, prints a messages to the user letting them know.
 echo "Install complete. Please check your designated recipient email in two minutes or so."
