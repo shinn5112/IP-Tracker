@@ -50,10 +50,10 @@ then echo "Installing auto-update crontab."; (sudo -S crontab -u root -l; echo -
 fi
 
 # installing ip tracker depedencies
-#echo "Installing package dependencies"
-#sudo apt-get update
-#sudo apt-get install python3-pip
-#pip3 install -r $localRepo/requirements.txt
+echo "Installing package dependencies"
+sudo apt-get update
+sudo apt-get install python3-pip
+pip3 install -r $localRepo/requirements.txt
 
 # Ends installation, prints a messages to the user letting them know.
 echo "Install complete. Please check your designated recipient email in two minutes or so."
