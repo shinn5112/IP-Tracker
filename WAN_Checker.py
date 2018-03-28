@@ -1,20 +1,20 @@
 #! /usr/bin/python3
 """
 @author Patrick Shinn
-@version 4.8
-Last Update: 3/28/16
 
 This program is set up for all operating systems by setting adjustment.
 If run on Linux, please add the following to the very top of the file:
 #! /usr/bin/python3
 This program is a wan checker for a server that will email me with the new IP address anytime
 the server IP changes. This is setup to use a gmail server. It will then add theses changes to
-the owncloud config.php file. Use the setup.py file to generate settings before using this program.
+the NextCloud config.php file. Use the setup.py file to generate settings before using this program.
 """
 from time import sleep
 import datetime
 import smtplib
 import os
+import socket
+import ipgetter
 
 # initial variables
 done = False  # universal boolean for loops
@@ -37,13 +37,10 @@ for setting in settings:
 
 # Settings
 #############################################################################################
-# OS cli command for wan ip extraction
-command = 'dig TXT +short o-o.myaddr.l.google.com @ns1.google.com'  # OSX/Linux cli command for WAN
-# command = "ifconfig wlan0 | grep \"inet \" | awk -F'[: ]+' '{ print $3 }' #OSX/Linux cli command for LAN"
 
 # File locations
 phpFile = settingsList[0]           # path to owncloud config.php
-oldWanLocation = settingsList[2]    # path to old wan file
+old_ip_location = settingsList[2]    # path to old wan file
 logFile = settingsList[1]           # path to log file
 
 # Email Settings
@@ -53,28 +50,35 @@ SUBJECT = settingsList[6]           # email subject
 PASSWORD = settingsList[5]          # sender email
 EMAIL_SERVER = settingsList[7]      # server address
 PORT_NUMBER = settingsList[8]       # server port number
+IP_TYPE = settingsList[9]           # ip tracking type, local or WAN
 # End Settings
 #############################################################################################
 
 # Files opened
-oldWan = open(oldWanLocation, 'r')  # file containing the old WAN IP
+old_ip = open(old_ip_location, 'r')  # file containing the old WAN IP
 log = open(logFile, 'a')          # log file
 
 # Function definitions for this program
 ############################################################################################
 
 
-def wan_check(cli_command, log_file):
+def ip_check(ip_type, log_file):
     """
-    :param cli_command: cli command for wan ip extraction
+    :param ip_type: integer value representing the current ip type to track.
     :param log_file: file used to log errors that occur during wan dig
-    :return: returns the current wan ip
+    :return: returns the current ip
     """
     read = ''  # stores read from loop.
     while not done:  # continues until IP can be procured
         # sends dig command to command line, reads it, then converts it to string removing all new lines, tabs
-        check = os.popen(cli_command)
-        read = check.read()
+
+        if int(ip_type) == 1:  # if we are tracking a local IP
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            read = s.getsockname()[0]
+            s.close()
+        else:             # if we are tracking a WAN IP
+            read = ipgetter.myip()
         read = str(read)
         read = read.strip("\n\t")
         # catches the listed errors and retries or returns the correct WAN IP.
@@ -105,8 +109,8 @@ def wan_check(cli_command, log_file):
 
 def php_config(current_ip, php_location):
     """
-    :param current_ip: ip to be written to owncloud config.php
-    :param php_location: path to owncloud config.php
+    :param current_ip: ip to be written to NextCloud config.php
+    :param php_location: path to NextCloud config.php
     """
     line_number = 0  # starting line number
     line_store = []  # stores lines to write to config.php
@@ -145,8 +149,8 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     record = open(status_file, 'w')
     fail_send = False
     server = smtplib.SMTP(server_address, server_port)  # server to be connected to
-    log_txt.write('\nThe Server IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
-    msg = 'Your Server IP Address has changed to: ' + current_ip
+    log_txt.write('\nThe IP changed to: ' + current_ip + ' on ' + str(now) + '\n')
+    msg = 'Your IP Address has changed to: ' + current_ip
     body = '\r\n'.join([
         'To: %s' % recipient,
         'From: %s' % sender,
@@ -195,23 +199,24 @@ def status_read(status_file):
         state = int(line)
     return state
 
+
 # End Definitions
 ##############################################################################################
 
 # Program start
-new = wan_check(command, log)  # sets the new ip to check against.
+new = ip_check(IP_TYPE, log)  # sets the new ip to check against.
 currentState = status_read(statusFile)
 
-for ip in oldWan:  # This iterates over the old WAN IP and appends it to the old variable.
+for ip in old_ip:  # This iterates over the old WAN IP and appends it to the old variable.
     ip.strip('\n')
     old += ip
 
 if new != old or currentState != 0:  # if the ip has changed or something went wrong on the last run
     # Updates the old wan to the current wan
-    oldWan.close()
-    oldWan = open(oldWanLocation, 'w')
-    oldWan.write(new)
-    oldWan.close()
+    old_ip.close()
+    old_ip = open(old_ip_location, 'w')
+    old_ip.write(new)
+    old_ip.close()
 
     # php_config function call updates owncloud config.php to accept new wan
     if phpFile.lower() == 'none':  # if the user has no php file, pass this part
@@ -227,5 +232,5 @@ if new != old or currentState != 0:  # if the ip has changed or something went w
     log.close()
 
 else:  # executes if the wan hasn't changed, do nothing.
-    oldWan.close()
+    old_ip.close()
     log.close()

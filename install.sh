@@ -11,14 +11,14 @@ localRepo=$(pwd)
 sudo echo $localRepo > pwd.txt
 
 # Begin program
-echo "Thank you for installing WAN-Tracker. Your install will begin soon."
+echo "Thank you for installing IP-Tracker. Your install will begin soon."
 echo "Please ensure that you have Python 3 installed before executing this script."
 
 # makes a wan directory in the optional software folder, then places a copy of setup, pwd.txt, and WAN_Checker in it.
-sudo -S mkdir -v /opt/wan
-echo "Moving files to /opt/wan folder."
-sudo cp -v Setup.py WAN_Checker.py pwd.txt /opt/wan
-cd /opt/wan
+sudo -S mkdir -v /opt/IP-Tracker
+echo "Moving files to /opt/IP-Tracker folder."
+sudo cp -v Setup.py WAN_Checker.py pwd.txt /opt/IP-Tracker
+cd /opt/IP-Tracker
 # Changes to the new wan directory, and secures the program files
 sudo chown root:root Setup.py WAN_Checker.py pwd.txt
 sudo chmod 644 pwd.txt
@@ -34,20 +34,26 @@ clear
 # clears the screen after exiting setup and then secures the generated files.  The installs automation crontab.
 echo "Securing settings files"
 sleep 2
-sudo chown root:root settings.txt log.txt status.txt wan.txt
+sudo chown root:root settings.txt log.txt status.txt ip.txt
 sudo chmod 700 settings.txt
 sudo touch errorlog.txt
-sudo chmod 744 log.txt status.txt wan.txt wan.txt errorlog.txt
-sudo chmod -x settings.txt log.txt status.txt wan.txt errorlog.txt
+sudo chmod 744 log.txt status.txt ip.txt errorlog.txt
+sudo chmod -x settings.txt log.txt status.txt ip.txt errorlog.txt
 echo "Installing crontab for automation under root."
 sleep 2
-echo "* * * * * python3 /opt/wan/WAN_Checker.py 2>> /opt/wan/errorlog.txt" | sudo crontab -u root -
+echo "* * * * * python3 /opt/IP-Tracker/WAN_Checker.py 2>> /opt/IP-Tracker/errorlog.txt" | sudo crontab -u root -
 
 # Auto-update install and setup.
 read -p "Would you like to receive automatic updates? y/N: " answer
 if [[ $answer == "y" ]]
 then echo "Installing auto-update crontab."; (sudo -S crontab -u root -l; echo -n "0 0 * * * "; echo -n $localRepo; echo "/auto-update.sh 2>> /opt/wan/updateErrorLog.txt") | sudo crontab -u root -; sudo touch updateErrorLog.txt updateLog.txt; sudo chown root:root updateErrorLog.txt updateLog.txt; sudo chmod 744 updateErrorLog.txt updateLog.txt; sudo chmod -x updateErrorLog.txt updateLog.txt; echo "Auto updates enabled."
 fi
+
+# installing ip tracker depedencies
+#echo "Installing package dependencies"
+#sudo apt-get update
+#sudo apt-get install python3-pip
+#pip3 install -r $localRepo/requirements.txt
 
 # Ends installation, prints a messages to the user letting them know.
 echo "Install complete. Please check your designated recipient email in two minutes or so."

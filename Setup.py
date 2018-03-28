@@ -23,7 +23,7 @@ pwd = pwd.strip('"\'\n\t')
 ######################################################################################################################
 phpConfig = ''
 logFile = ''
-oldWan = ''
+ip = ''
 recipient = ''
 sender = ''
 password = ''
@@ -31,6 +31,7 @@ subject = ''
 serverAddress = ''
 serverPort = ''
 status = ''
+ipType = ''
 ######################################################################################################################
 
 # Begin program
@@ -69,18 +70,22 @@ while not done:
     if mode == '2':  # Easy mode
         while mode == '2':  # while in easy mode, this code executes
             # User will answer the following questions, and the script will try to automate as much as it can.
-            q1 = input("Does your server run owncloud? yes/no: ")
-            if q1.lower() == 'no':
-                phpConfig = 'none'
-            else:
+            q1 = input("Does your server run NextCloud? y/N: ")
+            if q1.lower() == 'y':
                 q1 = input("What is the absolute path to your config.php file?: ")
                 phpConfig = q1
+            else:
+                phpConfig = 'none'
             q2 = input("What email would you like address changes to be sent to?: ")
             q3 = input("What email would you like to send the alerts from?: ")
             q4 = input("What is the sender email's password?: ")
             q7 = input("What would you like the email's subject to be?: ")
             q5 = input("Is the sender email a gmail or a yahoo account? If neither, say neither: ")
             emailConfirm = False
+            q6 = int(input("Would you like your:\n"
+                       "1. local IP\n"
+                       "2: WAN IP?\n"
+                       ": "))
             while not emailConfirm:  # preset email server settings.
                 if q5.lower() == 'gmail':
                     serverAddress = 'smtp.gmail.com'
@@ -101,7 +106,7 @@ while not done:
             if mode == '1':
                 break
 
-            oldWan = pwd + '/wan.txt'
+            ip = pwd + '/ip.txt'
             logFile = pwd + '/log.txt'
             status = pwd + '/status.txt'
             recipient = q2
@@ -109,16 +114,23 @@ while not done:
             password = q4
             subject = q7
 
+            if (q6 != 1) and (q6 != 2):  # if the value is not acceptable
+                print("You entered an invalid option for your IP tracking settings, defaulting to local IP option.")
+                ipType = 1
+            else:
+                ipType = int(q6)
+
             #  Appends settings to settings list for writing
             settingsList.append(phpConfig)
             settingsList.append(logFile)
-            settingsList.append(oldWan)
+            settingsList.append(ip)
             settingsList.append(recipient)
             settingsList.append(sender)
             settingsList.append(password)
             settingsList.append(subject)
             settingsList.append(serverAddress)
             settingsList.append(serverPort)
+            settingsList.append(ipType)
             mode = '1'
 
     elif mode == '1':  # manual config mode
@@ -135,10 +147,10 @@ while not done:
         if userChoice == '1':
             settingWrite = False
             settingsList = []
-            phpConfig = input("What is the path to your owncloud config.php file? If you do not"
+            phpConfig = input("What is the path to your NextCloud config.php file? If you do not"
                               "have one, put 'none': ")
             logFile = input("What is the path to your desired log file location?: ")
-            oldWan = input("What is the path to your desired wan storage? This "
+            ip = input("What is the path to your desired wan storage? This "
                            "should be in the same folder as WAN_Checker.py: ")
             recipient = input("What email should the email be sent to?: ")
             sender = input("What email will be sending the message?: ")
@@ -146,17 +158,22 @@ while not done:
             subject = input("What should the subject of the email be?: ")
             serverAddress = input("What is you email providers server address?: ")
             serverPort = input("What port number does your email sever use?: ")
+            ipType = input("Would you like your:\n"
+                       "1. local IP\n"
+                       "2: WAN IP?\n"
+                       ": ")
             # Appending settings to setting list for temporary storage
             settingsList.clear()  # clears all settings for clean write
             settingsList.append(phpConfig)
             settingsList.append(logFile)
-            settingsList.append(oldWan)
+            settingsList.append(ip)
             settingsList.append(recipient)
             settingsList.append(sender)
             settingsList.append(password)
             settingsList.append(subject)
             settingsList.append(serverAddress)
             settingsList.append(serverPort)
+            settingsList.append(int(ipType))
 
         # edit settings
         elif userChoice == '2':
@@ -172,7 +189,8 @@ while not done:
                       '6. sender password\n'
                       '7. subject\n'
                       '8. email server address\n'
-                      '9. email server port\n')
+                      '9. email server port\n'
+                      '10. ip tracking\n')
                 userChange = input("Please select a number option or type 'done' to exit: ")
                 if userChange == '1':
                     userRewrite = input("What should the new php.config location be?: ")
@@ -210,6 +228,13 @@ while not done:
                     userRewrite = input("What should the new server port be?: ")
                     settingsList.pop(8)
                     settingsList.insert(8, userRewrite)
+                elif userChange == '10':
+                    userRewrite = input("Would you like your:\n"
+                                           "1. local IP\n"
+                                           "2: WAN IP?\n"
+                                           ": ")
+                    settingsList.pop(9)
+                    settingsList.insert(9, userRewrite)
                 elif userChange.lower() == 'done':
                     break
                 else:
@@ -227,12 +252,13 @@ while not done:
             print('The email email subject is: ' + settingsList[6])
             print('The email server address is: ' + settingsList[7])
             print('The email server port is: ' + str(settingsList[8]))
+            print('The ip tracking type is: ' + str(settingsList[9]))
 
         # Write settings
         elif userChoice == '4':
             setting = open('settings.txt', 'w')  # Settings file to be written to
             for item in settingsList:
-                setting.write(item + '\n')
+                setting.write(str(item) + '\n')
             print('Settings written.')
             settingWrite = True
             setting.close()
@@ -244,7 +270,7 @@ while not done:
                 # This section generates the log and wan storage files.
                 if oldSettings is False:
                     log = open(logFile, 'w')
-                    wan = open(oldWan, 'w')
+                    wan = open(ip, 'w')
                     stat = open(status, 'w')
                     stat.write('0')
                     stat.close()

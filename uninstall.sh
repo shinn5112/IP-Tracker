@@ -18,8 +18,8 @@ sleep 2
 echo "Removing root crontab"
 sudo -S crontab -u root -r
 sleep 2
-echo "Removing WAN-Tracker program files"
-sudo rm -r wan
+echo "Removing IP-Tracker program files"
+sudo rm -r IP-Tracker
 sleep 2
-echo "WAN-Tracker has been removed from your system."
+echo "IP-Tracker has been removed from your system."
 sleep 2
