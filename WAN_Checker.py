@@ -39,7 +39,7 @@ for setting in settings:
 #############################################################################################
 
 # File locations
-phpFile = settingsList[0]           # path to owncloud config.php
+phpFile = settingsList[0]           # path to NextCloud config.php
 old_ip_location = settingsList[2]    # path to old wan file
 logFile = settingsList[1]           # path to log file
 
@@ -129,14 +129,14 @@ def php_config(current_ip, php_location):
     config_rewrite.close()
 
 
-def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_address, server_port, status_file):
+def send_mail(log_txt, current_ip, sender, recipient, sub, password, server_address, server_port, status_file):
     """
     :param log_txt: log for errors
     :param current_ip: what the ip to be sent is
     :param sender: sender email address
     :param recipient: receiving email address
     :param sub: subject of email
-    :param passwd: password of sender email
+    :param password: password of sender email
     :param server_address: address of the server
     :param server_port: server port being used
     :param status_file: email status file
@@ -172,7 +172,7 @@ def send_mail(log_txt, current_ip, sender, recipient, sub, passwd, server_addres
     else:
         record.write('0')  # if the connection was successful, the program will
         try:  # email the new ip
-            server.login(sender, passwd)
+            server.login(sender, password)
             server.sendmail(sender, recipient, body)
             log_txt.write('The message was sent successfully. \n \n')
         except (ConnectionError, ConnectionRefusedError, ConnectionAbortedError, ConnectionResetError,
